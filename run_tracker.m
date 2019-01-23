@@ -115,7 +115,7 @@ params.gap = 6;
 
 params.learning_rate_cn_color = 0.0174;% 0.0174
 params.learning_rate_cn_gray = 0.0175;%0.0175
-params.learning_rate_hog_color = 0.0173;%0.0173 0.0175(OTB00)
+params.learning_rate_hog_color = 0.0173;%0.0173 0.0175(OTB100)
 params.learning_rate_hog_gray = 0.018;%0.018
 params.num_compressed_dim_cn = 4;
 params.num_compressed_dim_hog = 4;
