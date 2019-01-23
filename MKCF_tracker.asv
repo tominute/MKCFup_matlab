@@ -117,12 +117,19 @@ end
 positions = zeros(numel(num_frames), 4);
 temp_res_psr = 20;
 % initialize the projection matrix
+projection_matrix_cn2 = [];
 projection_matrix_cn = [];
 projection_matrix_hog = [];
 rect_position = zeros(num_frames, 4);
 res_psr = 20;
 % to calculate fps
 time = 0;
+roww = zeros(1,5);
+coll = zeros(1,5);
+maxx = zeros(1,5);
+res_psrr = zeros(1,5);
+num_den = 8;
+% a=1;
 tran = zeros(num_frames); 
 
 for frame = 1:num_frames
@@ -210,11 +217,11 @@ for frame = 1:num_frames
         else
             % update the appearance
             if size(im,3)==3
-                z_hog = (1 - learning_rate_hog) * z_hog + learning_rate_hog * xo_hog;
+                z_hog = (1 - learning_rate_hog) * z_hog + learning_rate_hog*learning_rate * xo_hog;
             else
-                z_hog = (1 - learning_rate_hog) * z_hog + learning_rate_hog * xo_hog;
+                z_hog = (1 - learning_rate_hog) * z_hog + learning_rate_hog*learning_rate * xo_hog;
             end
-            z_cn = (1 - learning_rate_cn) * z_cn + learning_rate_cn * xo_cn;
+            z_cn = (1 - learning_rate_cn) * z_cn + learning_rate_cn*learning_rate * xo_cn;
         end
 
         % if dimensionality reduction is used: update the projection matrix
@@ -314,6 +321,7 @@ for frame = 1:num_frames
            
                 text_handle2 = text(10, 40, int2str(temp_res_psr));
                 set(text_handle2, 'color', [0 1 1]);
+
         else
             try
                 set(im_handle, 'CData', im)
@@ -322,10 +330,12 @@ for frame = 1:num_frames
                 set(text_handle, 'string', [int2str(frame) '/' int2str(num_frames)]);
            
                     set(text_handle2, 'string', int2str(temp_res_psr));
+
             catch
                 return
             end
-        end      
+        end
+        
         drawnow
         %pause
     end
